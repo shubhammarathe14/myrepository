@@ -3,15 +3,25 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo No dependencies to install
+      - echo "Updating package lists..."
+      - apt-get update -y
+      - echo "Installing Nginx..."
+      - apt-get install -y nginx
+      - echo "Starting Nginx..."
+      - service nginx start
 
   build:
     commands:
-      - echo Copying HTML files to the build output directory...
-      - mkdir -p dist
-      - cp index.html dist/
+      - echo "Creating dist directory..."
+      - mkdir -p /var/www/html
+      - echo "Copying HTML files..."
+      - cp -v *.html /var/www/html/
+
+  post_build:
+    commands:
+      - echo "Restarting Nginx to apply changes..."
+      - service nginx restart
 
 artifacts:
   files:
-    - dist/*
-  base-directory: dist  # Point to the folder with your HTML file
+    - '**/*'
