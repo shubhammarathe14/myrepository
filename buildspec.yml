@@ -11,9 +11,15 @@ phases:
   build:
     commands:
       - echo "Build started on $(date)"
-      - echo "Checking if index.html exists..."
+      - echo "Current working directory:"
+      - pwd
       - ls -la
+      - echo "Checking if index.html exists..."
       - if [ -f index.html ]; then echo "index.html found!"; else echo "index.html NOT found!"; exit 1; fi
+      - echo "Creating dist directory..."
+      - mkdir -p dist
+      - echo "Copying index.html to dist/..."
+      - cp index.html dist/
       - echo "Copying index.html to /var/www/html/..."
       - sudo cp index.html /var/www/html/
 
@@ -24,7 +30,9 @@ phases:
 
 artifacts:
   files:
-    - /var/www/html/index.html
+    - '**/*'
+  base-directory: dist
+
 
 
 
