@@ -12,12 +12,13 @@ phases:
 
   build:
     commands:
-      - echo "Checking working directory and files..."
-      - pwd
+      - echo "Checking if index.html exists..."
       - ls -la
+      - if [ -f index.html ]; then echo "index.html found!"; else echo "index.html NOT found!"; exit 1; fi
+      - echo "Ensuring /var/www/html exists..."
       - mkdir -p /var/www/html
-      - echo "Copying HTML files..."
-      - if ls *.html 1> /dev/null 2>&1; then cp -v *.html /var/www/html/; else echo "No HTML files found!"; fi
+      - echo "Copying index.html to /var/www/html..."
+      - cp -v index.html /var/www/html/
 
   post_build:
     commands:
@@ -27,3 +28,4 @@ phases:
 artifacts:
   files:
     - '**/*'
+
