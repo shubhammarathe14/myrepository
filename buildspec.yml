@@ -4,22 +4,16 @@ phases:
   install:
     commands:
       - echo "Updating package lists..."
-      - sudo apt-get update -y
+      - apt-get update -y
       - echo "Installing Nginx..."
-      - sudo apt-get install -y nginx
+      - apt-get install -y nginx
 
   build:
     commands:
       - echo "Build started on $(date)"
-      - echo "Current working directory:"
-      - pwd
-      - ls -la
       - echo "Checking if index.html exists..."
+      - ls -la
       - if [ -f index.html ]; then echo "index.html found!"; else echo "index.html NOT found!"; exit 1; fi
-      - echo "Creating dist directory..."
-      - mkdir -p dist
-      - echo "Copying index.html to dist/..."
-      - cp index.html dist/
       - echo "Copying index.html to /var/www/html/..."
       - sudo cp index.html /var/www/html/
 
@@ -30,9 +24,7 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
-  base-directory: dist
-
+    - /var/www/html/index.html
 
 
 
