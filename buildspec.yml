@@ -2,18 +2,16 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      nodejs: latest
+    commands:
+      - echo No dependencies to install
+
   build:
     commands:
-      - echo "Building HTML project"
+      - echo Copying HTML files to the build output directory...
       - mkdir -p dist
-      - cp -r * dist/
-  post_build:
-    commands:
-      - echo "Build completed successfully"
+      - cp index.html dist/
 
 artifacts:
   files:
-    - '**/*'
-  base-directory: dist
+    - dist/*
+  base-directory: dist  # Point to the folder with your HTML file
