@@ -12,14 +12,16 @@ phases:
 
   build:
     commands:
-      - echo "Creating dist directory..."
+      - echo "Checking working directory and files..."
+      - pwd
+      - ls -la
       - mkdir -p /var/www/html
       - echo "Copying HTML files..."
-      - cp -v *.html /var/www/html/
+      - if ls *.html 1> /dev/null 2>&1; then cp -v *.html /var/www/html/; else echo "No HTML files found!"; fi
 
   post_build:
     commands:
-      - echo "Restarting Nginx to apply changes..."
+      - echo "Restarting Nginx..."
       - service nginx restart
 
 artifacts:
