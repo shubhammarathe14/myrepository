@@ -11,6 +11,9 @@ phases:
   build:
     commands:
       - echo "Build started on $(date)"
+      - echo "Checking if index.html exists..."
+      - ls -la
+      - if [ -f index.html ]; then echo "index.html found!"; else echo "index.html NOT found!"; exit 1; fi
       - echo "Copying index.html to /var/www/html/..."
       - sudo cp index.html /var/www/html/
 
@@ -22,5 +25,6 @@ phases:
 artifacts:
   files:
     - /var/www/html/index.html
+
 
 
