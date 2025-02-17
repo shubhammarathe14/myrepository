@@ -15,15 +15,17 @@ phases:
       - echo "Checking if index.html exists..."
       - ls -la
       - if [ -f index.html ]; then echo "index.html found!"; else echo "index.html NOT found!"; exit 1; fi
-      - echo "Ensuring /var/www/html exists..."
-      - mkdir -p /var/www/html
-      - echo "Copying index.html to /var/www/html..."
-      - cp -v index.html /var/www/html/
+      - echo "Creating dist directory..."
+      - mkdir -p dist
+      - echo "Copying index.html to dist..."
+      - cp -v index.html dist/
+      - sudo mkdir -p /var/www/html
+      - sudo cp -v index.html /var/www/html/
 
   post_build:
     commands:
       - echo "Restarting Nginx..."
-      - service nginx restart
+      - sudo service nginx restart
 
 artifacts:
   files:
